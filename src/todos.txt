@@ -1,0 +1,15 @@
+1. client creates a request all freelancers can see
+2. freelancer replies to this request by messaging the client
+3. client accepts or declines the freelancer
+4. both parties agree to proceed
+5. Client creates a project
+6. Client selects the freelancer for the project
+7. Client sets the budget for the project (this is discussed between the client and freelancer)
+8. Client sets the due date for the project (this is discussed between the client and freelancer)
+9. Client submits the project proposal
+10. Freelancer accepts the project
+11. Payment is held in "escrow" by the platform (e.g Codementor) until the project is completed
+12.Once the project is accepted by the freelancer, it moves through the following 3 phases:
+13. In progress (the project can be cancelled by either party in this phase, and payment is refunded back to the client)
+14. Submitted (by freelancer) (payment cannot be refunded anymore - unless unique circumstance)
+15. Accepted (by client) (payment is made to the freelancer)
