@@ -6,11 +6,12 @@ import { Redirect, Link } from 'react-router-dom';
 
 import { register } from '../../actions/auth';
 
+
 const Register = props => {
   const initialState = {
     username: '',
     email: '',
-    password: '',
+    password1: '',
     password2: ''
   };
 
@@ -33,7 +34,7 @@ const Register = props => {
     return <Redirect to="/" />
   }
 
-  const { username, email, password, password2 } = state;
+  const { username, email, password1, password2 } = state;
 
   return (
     <MDBContainer>
@@ -76,8 +77,8 @@ const Register = props => {
                     validate
                     error="wrong"
                     success="right"
-                    name="password"
-                    value={password}
+                    name="password1"
+                    value={password1}
                     onChange={handleChange}
                   />
                   <MDBInput

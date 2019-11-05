@@ -1,17 +1,8 @@
-import axios from 'axios';
-
-import { endpoint } from './endpoints';
-
-
-export const authAxios = axios.create({
-  baseURL: endpoint,
-  headers: {
-    Authorization: `Token ${localStorage.getItem('token')}`
+export const addToken = () => (
+  {
+    headers: { Authorization: `Token ${localStorage.getItem('token')}` }
   }
-});
-
-
-export const truncateDate = date => new Date(date).toDateString();
+);
 
 
 export const truncateWords = (text, wordsNumber) => {

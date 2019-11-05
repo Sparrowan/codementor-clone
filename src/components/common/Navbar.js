@@ -10,6 +10,8 @@ import { logout } from '../../actions/auth';
 const Navbar = props => {
   const [isOpen, setOpen] = useState(false);
 
+  const { isAuthenticated, user } = props.auth;
+
   return (
     <MDBNavbar color="indigo" dark expand="md">
       <MDBNavbarBrand>
@@ -19,16 +21,19 @@ const Navbar = props => {
       <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
         <MDBNavbarNav left>
           <MDBNavItem>
-            <MDBNavLink to="/project-form">Create project</MDBNavLink>
+            <MDBNavLink to="/job-form">Create request</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/project-form">Freelancers</MDBNavLink>
+            <MDBNavLink to="/freelancers">Freelancers</MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
         <MDBNavbarNav right>
           {
-            props.isAuthenticated ?
+            isAuthenticated ?
               <>
+                <MDBNavItem>
+                  <MDBNavLink to={`/profile/${user.id}`}>{user.username}</MDBNavLink>
+                </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink to="#!" onClick={() => props.logout()}>Logout</MDBNavLink>
                 </MDBNavItem>
@@ -50,7 +55,7 @@ const Navbar = props => {
 };
 
 
-const mapStateToProps = state => ({ isAuthenticated: state.auth.token !== null });
+const mapStateToProps = state => ({ auth: state.auth });
 
 
 export default connect(mapStateToProps, { logout })(Navbar);

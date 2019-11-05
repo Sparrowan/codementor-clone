@@ -9,9 +9,11 @@ import Navbar from './common/Navbar';
 import PrivateRoute from './accounts/PrivateRoute';
 import Login from './accounts/Login';
 import Register from './accounts/Register';
-import ProjectList from './projects/ProjectList';
-import ProjectDetail from './projects/ProjectDetail';
-// import ProjectForm from './projects/ProjectForm';
+import JobList from './jobs/JobList';
+import JobDetail from './jobs/JobDetail';
+import JobForm from './jobs/JobForm';
+import FreelancerList from  './accounts/FreelancerList';
+import Profile from './accounts/Profile';
 
 
 const App = () => {
@@ -23,11 +25,13 @@ const App = () => {
         <Navbar />
         <MDBContainer>
           <Switch>
-            <Route exact path="/" component={ProjectList} />
-            <Route exact path="/projects/:id" component={ProjectDetail} />
-            {/*<PrivateRoute exact path="/project-form" component={ProjectForm} />*/}
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={JobList} />
+            <Route exact path="/jobs/:id" component={JobDetail} />
+            <PrivateRoute exact path="/job-form" component={JobForm} />
+            <Route exact path="/freelancers" component={FreelancerList} />
+            <Route exact path="/profile/:id" component={Profile} />
           </Switch>
         </MDBContainer>
       </Router>

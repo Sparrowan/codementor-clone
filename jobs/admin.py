@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import JobRequest
+from .models import Job
 
 
-admin.site.register(JobRequest)
+admin.site.register(Job)

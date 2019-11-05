@@ -4,14 +4,16 @@ const apiUrl = '/api/';
 
 export const endpoint = localhost + apiUrl;
 
-export const registerUrl = endpoint + 'accounts/user/';
+export const registerUrl = endpoint + 'accounts/rest-auth/registration/';
 
 export const loginUrl = endpoint + 'accounts/rest-auth/login/';
 
-// export const projectListCreateUrl = endpoint + 'projects/';
+export const userUrl = endpoint + 'accounts/user/';
 
-export const projectListCreateUrl = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
+export const profileUrl = id => `${endpoint}accounts/profile/${id}`;
 
-// export const projectDetailUrl = id => `${endpoint}projects/${id}`;
+export const freelancerListUrl = endpoint + 'accounts/freelancers/';
 
-export const projectDetailUrl = id => `https://jsonplaceholder.typicode.com/posts/${id}`;
+export const jobListCreateUrl = endpoint + 'jobs/';
+
+export const jobDetailEditDeleteUrl = id => `${endpoint}jobs/${id}`;

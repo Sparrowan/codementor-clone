@@ -1,12 +1,16 @@
 import { combineReducers } from 'redux';
 
 import auth from './auth';
-import projectList from './projectList';
-import projectDetail from './projectDetail';
+import jobList from './jobList';
+import jobDetail from './jobDetail';
+import profile from './profile';
+import freelancerList from './freelancerList';
 
 
 export default combineReducers({
   auth,
-  projectList,
-  projectDetail
+  jobList,
+  jobDetail,
+  profile,
+  freelancerList
 })
