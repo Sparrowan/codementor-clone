@@ -8,12 +8,12 @@ import { login } from '../../actions/auth';
 
 
 const Login = props => {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.login({username, password});
+    props.login({ username, password });
   };
 
   // redirect to home page after successful login

@@ -8,8 +8,8 @@ import {
   PROFILE_LOADED,
   PROFILE_ERROR
 } from './types';
-
-import { profileUrl, freelancerListUrl } from '../endpoints';
+import { profileUrl, freelancerListUrl, becomeFreelancerUrl, unbecomeFreelancerUrl } from '../endpoints';
+import { addToken } from '../utils';
 
 
 export const loadProfile = id => dispatch => {
@@ -29,6 +29,32 @@ export const loadFreelancerList = () => dispatch => {
     .then(response => dispatch({ type: FREELANCER_LIST_LOADED, payload: response.data }))
     .catch(error => {
         dispatch({ type: FREELANCER_LIST_ERROR });
+        console.log(error)
+      });
+};
+
+
+export const becomeFreelancer = (data, setFormIsVisible, setAlertIsVisible) => dispatch => {
+  axios.post(becomeFreelancerUrl, data, addToken())
+    .then(response => {
+      dispatch({ type: PROFILE_LOADED, payload: response.data });
+      setFormIsVisible(false);
+      setAlertIsVisible(true)
+    })
+    .catch(error => {
+        dispatch({ type: PROFILE_ERROR });
+        console.log(error)
+      });
+};
+
+
+export const unbecomeFreelancer = () => dispatch => {
+  axios.get(unbecomeFreelancerUrl, addToken())
+    .then(response => {
+      dispatch({ type: PROFILE_LOADED, payload: response.data });
+    })
+    .catch(error => {
+        dispatch({ type: PROFILE_ERROR });
         console.log(error)
       });
 };
