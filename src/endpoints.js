@@ -10,7 +10,7 @@ export const loginUrl = endpoint + 'accounts/rest-auth/login/';
 
 export const userUrl = endpoint + 'accounts/user/';
 
-export const profileUrl = id => `${endpoint}accounts/profile/${id}`;
+export const profileDetailEditDeleteUrl = id => `${endpoint}accounts/profile/${id}/`;
 
 export const freelancerListUrl = endpoint + 'accounts/freelancers/';
 
@@ -20,4 +20,4 @@ export const unbecomeFreelancerUrl = endpoint + 'accounts/unbecome-freelancer/';
 
 export const jobListCreateUrl = endpoint + 'jobs/';
 
-export const jobDetailEditDeleteUrl = id => `${endpoint}jobs/${id}`;
+export const jobDetailEditDeleteUrl = id => `${endpoint}jobs/${id}/`;

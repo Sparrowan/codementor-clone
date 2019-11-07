@@ -19,7 +19,7 @@ const Register = props => {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setState({[name]: value});
+    setState({ [name]: value });
   };
 
   const handleSubmit = e => {

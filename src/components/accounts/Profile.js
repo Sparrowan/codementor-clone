@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {MDBAlert, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol, MDBRow} from 'mdbreact';
-import { useParams } from 'react-router-dom';
+import { MDBAlert, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol, MDBRow } from 'mdbreact';
+import { useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { loadProfile } from '../../actions/profiles';
@@ -41,8 +41,8 @@ const Profile = props => {
         {
           isOwner &&
             <div style={{ position: 'absolute', top: '8px', right: '5px' }}>
-              <MDBBtn size="sm">Edit</MDBBtn>
-              {/*<ProfileDeleteButton id={id} />*/}
+              <Link to="/profile-edit"><MDBBtn size="sm">Edit</MDBBtn></Link>
+              <ProfileDeleteButton />
             </div>
         }
         <MDBCardTitle className="mt-3 text-center">
@@ -72,6 +72,16 @@ const Profile = props => {
               <br />
               <div>Languages: {languages}</div>
               <br />
+              {
+                isFreelancer &&
+                  <>
+                    <div>Experience: {freelancer.bio}</div>
+                    <br />
+                    <div>Technologies: {freelancer.technologies}</div>
+                    <br />
+                  </>
+              }
+
             </MDBCol>
           </MDBRow>
         </MDBCardBody>

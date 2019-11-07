@@ -45,14 +45,10 @@ export const addJob = (data, history) => dispatch => {
 };
 
 
-export const editJob = (id, data) => dispatch => {
-  dispatch({ type: JOB_DETAIL_LOADING });
-  axios.post(jobDetailEditDeleteUrl(id), addToken())
-    .then(response => dispatch({ type: JOB_DETAIL_LOADED, payload: response.data }))
-    .catch(error => {
-        dispatch({ type: JOB_DETAIL_ERROR });
-        console.log(error)
-      });
+export const editJob = (id, data, history) => dispatch => {
+  axios.put(jobDetailEditDeleteUrl(id), data, addToken())
+    .then(() => history.push(`/jobs/${id}`))
+    .catch(error => console.log(error.response.data));
 };
 
 

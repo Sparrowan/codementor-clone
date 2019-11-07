@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBModal, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { deleteJob } from '../../actions/jobs';
 
 
-const JobDeleteButton = props => {
+const JobDeleteButton = () => {
   const [isOpen, toggle] = useState(false);
 
+  const { id } = useParams();
   const history = useHistory();
 
   return (
@@ -18,16 +18,11 @@ const JobDeleteButton = props => {
         <MDBModalHeader toggle={() => toggle(!isOpen)}>Are you sure you want to delete this job request?</MDBModalHeader>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => toggle(!isOpen)}>Cancel</MDBBtn>
-          <MDBBtn color="primary" onClick={() => deleteJob(props.id, history)}>Delete</MDBBtn>
+          <MDBBtn color="primary" onClick={() => deleteJob(id, history)}>Delete</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </>
   )
-};
-
-
-JobDeleteButton.propTypes = {
-  id: PropTypes.number.isRequired
 };
 
 

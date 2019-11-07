@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBIcon, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 
-import { addJob } from '../../actions/jobs';
+import { addJob, editJob } from '../../actions/jobs';
 
 
 const JobForm = props => {
@@ -16,17 +16,35 @@ const JobForm = props => {
     budget: ''
   };
 
-  const [state, setSate] = useReducer((state, updatedState) => ({...state, ...updatedState}), initialState);
+  const [state, setState] = useReducer((state, updatedState) => ({...state, ...updatedState}), initialState);
+
+  const job = useLocation().job;
+
+  useEffect(() => {
+    if (job) {
+      setState({
+        summary: job.summary,
+        details: job.details,
+        technologies: job.technologies,
+        deadline: job.deadline,
+        budget: job.budget
+      })
+    }
+  }, [job]);
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setSate({[name]: value});
+    setState({ [name]: value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addJob(state, props.history);
-    setSate(initialState);
+    if (job) {
+      props.editJob(job.id, state, props.history);
+    } else {
+      props.addJob(state, props.history);
+    }
+    setState(initialState);
   };
 
   const { summary, details, technologies, deadline, budget } = state;
@@ -38,7 +56,9 @@ const JobForm = props => {
           <MDBCard className="mt-5">
             <MDBCardBody>
               <form onSubmit={handleSubmit}>
-                <p className="h4 text-center mb-4">Create a job request</p>
+                <p className="h4 text-center mb-4">
+                  {job ? 'Edit job request' : 'Create a job request'}
+                </p>
                 <MDBInput
                   label="One sentence summary of your request"
                   outline
@@ -97,6 +117,7 @@ const JobForm = props => {
 
 JobForm.propTypes = {
   addJob: PropTypes.func.isRequired,
+  editJob: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired
 };
 
@@ -106,4 +127,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addJob })(JobForm);
+export default connect(mapStateToProps, { addJob, editJob })(JobForm);

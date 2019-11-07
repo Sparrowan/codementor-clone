@@ -14,6 +14,7 @@ import JobDetail from './jobs/JobDetail';
 import JobForm from './jobs/JobForm';
 import FreelancerList from  './accounts/FreelancerList';
 import Profile from './accounts/Profile';
+import ProfileEdit from './accounts/ProfileEdit';
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
             <PrivateRoute exact path="/job-form" component={JobForm} />
             <Route exact path="/freelancers" component={FreelancerList} />
             <Route exact path="/profile/:id" component={Profile} />
+            <Route exact path="/profile-edit" component={ProfileEdit} />
           </Switch>
         </MDBContainer>
       </Router>

@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from .serializers import UserSerializer, ProfileSerializer
 from .models import Profile, Freelancer
-from jobs.permissions import IsOwner
+from jobs.permissions import IsOwnerOrReadOnly, IsOwner
 
 
 class UserView(generics.RetrieveAPIView):
@@ -18,7 +18,7 @@ class UserView(generics.RetrieveAPIView):
 class ProfileView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class FreelancerListView(generics.ListAPIView):

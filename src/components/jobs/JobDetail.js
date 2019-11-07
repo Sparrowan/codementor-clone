@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import { loadJobDetail } from '../../actions/jobs';
 import JobDeleteButton from "./JobDeleteButton";
@@ -30,8 +30,8 @@ const JobDetail = props => {
           isOwner &&
             <div style={{ position: 'absolute', top: '8px', right: '5px' }}>
               <MDBBtn color="warning" size="sm">Pay</MDBBtn>
-              <MDBBtn size="sm">Edit</MDBBtn>
-              <JobDeleteButton id={id} />
+              <Link to={{ pathname: '/job-form', job: props.jobDetail.job }}><MDBBtn size="sm">Edit</MDBBtn></Link>
+              <JobDeleteButton />
             </div>
         }
         <MDBCardTitle className="text-center">{summary}</MDBCardTitle>
