@@ -12,6 +12,8 @@ export const userUrl = endpoint + 'accounts/user/';
 
 export const profileDetailEditDeleteUrl = id => `${endpoint}accounts/profile/${id}/`;
 
+export const hireFreelancerUrl = (freelancer_id, job_id) => `${endpoint}accounts/profile/${freelancer_id}/hire-freelancer/${job_id}/`;
+
 export const freelancerListUrl = endpoint + 'accounts/freelancers/';
 
 export const becomeFreelancerUrl = endpoint + 'accounts/become-freelancer/';
@@ -21,3 +23,5 @@ export const unbecomeFreelancerUrl = endpoint + 'accounts/unbecome-freelancer/';
 export const jobListCreateUrl = endpoint + 'jobs/';
 
 export const jobDetailEditDeleteUrl = id => `${endpoint}jobs/${id}/`;
+
+export const applyForJobUrl = id => `${endpoint}jobs/${id}/apply-for-job/`;

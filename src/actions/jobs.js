@@ -7,10 +7,10 @@ import {
   JOB_ADDED,
   JOB_DETAIL_LOADING,
   JOB_DETAIL_LOADED,
-  JOB_DETAIL_ERROR
+  JOB_DETAIL_ERROR,
 } from './types';
 import { addToken } from '../utils';
-import { jobListCreateUrl, jobDetailEditDeleteUrl } from '../endpoints';
+import { jobListCreateUrl, jobDetailEditDeleteUrl, applyForJobUrl } from '../endpoints';
 
 
 export const loadJobList = () => dispatch => {
@@ -56,4 +56,14 @@ export const deleteJob = (id, history) => {
   axios.delete(jobDetailEditDeleteUrl(id), addToken())
     .then(() => history.push('/'))
     .catch(error => console.log(error));
+};
+
+
+export const applyForJob = id => dispatch => {
+  axios.get(applyForJobUrl(id), addToken())
+    .then(response => dispatch({ type: JOB_DETAIL_LOADED, payload: response.data }))
+    .catch(error => {
+        dispatch({ type: JOB_DETAIL_ERROR });
+        console.log(error.response.data)
+      });
 };

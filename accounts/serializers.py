@@ -19,6 +19,7 @@ class FreelancerSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     freelancer = serializers.SerializerMethodField()
+    taken_jobs = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
@@ -31,6 +32,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'freelancer'):
             return FreelancerSerializer(obj.freelancer).data
         return None
+
+    def get_taken_jobs(self, obj):
+        job_ids = []
+        for job in obj.user.jobs.all():
+            job_ids.append(job.id)
+        return job_ids
 
     def update(self, instance, validated_data):
         print(validated_data)

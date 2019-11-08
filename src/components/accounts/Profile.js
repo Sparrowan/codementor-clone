@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { MDBAlert, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol, MDBRow } from 'mdbreact';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loadProfile } from '../../actions/profiles';
+import { loadProfile, hireFreelancer } from '../../actions/profiles';
 import ProfileDeleteButton from './ProfileDeleteButton';
 import UnbecomeFreelancerButton from './UnbecomeFreelancerButton';
 import FreelancerForm from './FreelancerForm';
@@ -11,6 +11,13 @@ import FreelancerForm from './FreelancerForm';
 
 const Profile = props => {
   const { id } = useParams();
+  const location_job_id = useLocation().job_id;
+
+  if (location_job_id) {
+    localStorage.setItem('location_job_id', location_job_id)
+  }
+
+  const job_id = localStorage.getItem('location_job_id');
 
   useEffect(() => props.loadProfile(id), [id]);
 
@@ -18,7 +25,7 @@ const Profile = props => {
   const [alertIsVisible, setAlertIsVisible] = useState(false);
 
   const { auth } = props;
-  const { user, freelancer, photo, social_accounts, timezone, languages } = props.profile.profile;
+  const { user, freelancer, taken_jobs, photo, social_accounts, timezone, languages } = props.profile.profile;
 
   let isOwner;
 
@@ -34,6 +41,14 @@ const Profile = props => {
   if (freelancer && freelancer.id) {
     isFreelancer = true
   }
+
+  // check if used has been hired
+  const isHired = taken_jobs && !!taken_jobs.includes(parseInt(job_id, 10));
+  const hireButton = (
+      <MDBBtn color={isHired ? 'deep-orange' : 'primary'} className="mt-2 btn-block" onClick={() => props.hireFreelancer(id, job_id)}>
+        {isHired ? 'Hired' : 'Hire Now'}
+      </MDBBtn>
+  );
 
   return (
     <>
@@ -52,7 +67,7 @@ const Profile = props => {
           <MDBRow>
             <MDBCol md={2}>
               <img src={photo} className="img-fluid rounded" />
-              {!isOwner && isFreelancer && <MDBBtn>Hire Now</MDBBtn>}
+              {!isOwner && isFreelancer && hireButton}
               {
                 isOwner && !isFreelancer &&
                   <MDBBtn
@@ -107,4 +122,4 @@ const Profile = props => {
 const mapStateToProps = state => ({ auth: state.auth, profile: state.profile });
 
 
-export default connect(mapStateToProps, { loadProfile })(Profile);
+export default connect(mapStateToProps, { loadProfile, hireFreelancer })(Profile);

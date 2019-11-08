@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -5,6 +6,7 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, ProfileSerializer
 from .models import Profile, Freelancer
 from jobs.permissions import IsOwnerOrReadOnly, IsOwner
+from jobs.models import Job
 
 
 class UserView(generics.RetrieveAPIView):
@@ -51,3 +53,21 @@ class UnbecomeFreelancerView(generics.GenericAPIView):
         profile.freelancer.delete()
 
         return Response(ProfileSerializer(profile, context=self.get_serializer_context()).data)
+
+
+class HireFreelancerView(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(id=self.kwargs['pk'])
+        job = Job.objects.get(pk=self.kwargs['id'])
+
+        if user == job.freelancer:
+            job.freelancer = None
+            job.save()
+        else:
+            job.freelancer = user
+            job.save()
+        return self.retrieve(request, *args, **kwargs)

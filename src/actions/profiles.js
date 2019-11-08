@@ -14,6 +14,7 @@ import {
   profileDetailEditDeleteUrl,
   becomeFreelancerUrl,
   unbecomeFreelancerUrl,
+  hireFreelancerUrl
 } from '../endpoints';
 import { addToken } from '../utils';
 
@@ -123,6 +124,13 @@ export const unbecomeFreelancer = () => dispatch => {
         dispatch({ type: PROFILE_ERROR });
         console.log(error)
       });
+};
+
+
+export const hireFreelancer = (freelancer_id, job_id) => dispatch => {
+  axios.get(hireFreelancerUrl(freelancer_id, job_id), addToken())
+    .then(response => dispatch({ type: PROFILE_LOADED, payload: response.data }))
+    .catch(error => console.log(error.response.data));
 };
 
 

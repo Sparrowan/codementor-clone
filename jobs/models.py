@@ -1,13 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from accounts.models import Freelancer
-
 
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    applicants = models.ManyToManyField(Freelancer, related_name='applications')
-    freelancer = models.ForeignKey(Freelancer, related_name='jobs', blank=True, null=True, on_delete=models.SET_NULL)
+    applicants = models.ManyToManyField(User, related_name='applications', blank=True)
+    freelancer = models.ForeignKey(User, related_name='jobs', blank=True, null=True, on_delete=models.SET_NULL)
     summary = models.CharField(max_length=50)
     details = models.TextField()
     technologies = models.CharField(max_length=150)
