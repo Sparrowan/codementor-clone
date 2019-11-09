@@ -3,10 +3,12 @@ chardet==3.0.4
 defusedxml==0.6.0
 Django==2.2.6
 django-allauth==0.40.0
+django-cors-headers==3.1.1
 django-rest-auth==0.9.5
 djangorestframework==3.10.3
 idna==2.8
 oauthlib==3.1.0
+Pillow==6.2.1
 python3-openid==3.1.0
 pytz==2019.3
 requests==2.22.0

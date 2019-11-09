@@ -34,12 +34,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         return None
 
     def get_taken_jobs(self, obj):
-        job_ids = []
-        for job in obj.user.jobs.all():
-            job_ids.append(job.id)
-        return job_ids
+        return obj.user.jobs.all().values_list('id', flat=True)
 
     def update(self, instance, validated_data):
+        """
+        Read feedback for how to fix this
+        """        
         print(validated_data)
         user_data = validated_data.pop('user')
         user = instance.user
